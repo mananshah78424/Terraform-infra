@@ -1,5 +1,5 @@
 
-module "sqs" {
+module "sqs_fixtures_daily" {
     source = "./modules/sqs"
     queue_name = "fixtures-daily-service-queue"
 }
@@ -28,4 +28,19 @@ module "rds" {
   db_password            = var.rds_password
   db_subnet_ids          = module.vpc.public_subnet_ids
   vpc_security_group_ids = [module.db_sg.security_group_id]
+}
+
+
+module "sqs_fixtures_daily_s3_events" {
+    source = "./modules/sqs"
+    queue_name = "fixtures-daily-s3-events-queue"
+}
+
+resource "aws_s3_bucket_notification" "s3_events" {
+  bucket = module.s3.bucket_name
+
+  queue {
+    queue_arn = module.sqs_fixtures_daily_s3_events.queue_arn
+    events = ["s3:ObjectCreated:*"]
+  }
 }
