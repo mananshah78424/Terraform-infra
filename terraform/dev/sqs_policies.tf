@@ -19,4 +19,4 @@ resource "aws_sqs_queue_policy" "allow_s3_to_sqs_fixtures_daily_s3_events" {
         }
     ]
     })
-}
+} 

@@ -36,5 +36,4 @@ variable "cidr_block_ingress" {
   description = "List of allowed cidr block for ingress"
   type = list(string)
   default = ["0.0.0.0/0"]
-}
-
+} 
