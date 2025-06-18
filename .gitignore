@@ -27,3 +27,6 @@ terraform.tfvars
 
 # MacOS system files
 .DS_Store
+
+# Nomad public key
+nomad-prod.pub
