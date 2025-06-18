@@ -109,6 +109,17 @@ variable "policy_actions" {
     "s3:ListBucket",
     "s3:GetObject",
     "s3:PutObject",
-    "s3:DeleteObject"
+    "s3:DeleteObject",
+
+    # SSM Parameter Store permissions
+    "ssm:GetParameters",
+    "ssm:GetParameter",
+    "ssm:GetParametersByPath",
+    "ssm:DescribeParameters",
+
+    # KMS permissions
+    "kms:Decrypt",
+    "kms:DescribeKey",
+    "kms:GenerateDataKey"
   ]
 } 

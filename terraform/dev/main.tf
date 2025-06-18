@@ -20,11 +20,23 @@ module "db_sg" {
   cidr_block_ingress=var.cidr_block_ingress
 }
 
+data "aws_ssm_parameter" "db_name" {
+  name = "/app-aws/db_name"
+}
+
+data "aws_ssm_parameter" "db_username" {
+  name = "/app-aws/db_username"
+}
+
+data "aws_ssm_parameter" "db_password" {
+  name = "/app-aws/db_password"
+}
+
 module "rds" {
   source                 = "../modules/rds"
-  db_name                = "dev${var.rds_dbname}"
-  db_username            = var.rds_username
-  db_password            = var.rds_password
+  db_name                = data.aws_ssm_parameter.db_name.value
+  db_username            = data.aws_ssm_parameter.db_username.value
+  db_password            = data.aws_ssm_parameter.db_password.value
   db_subnet_ids          = module.vpc.public_subnet_ids
   vpc_security_group_ids = [module.db_sg.security_group_id]
 }
